@@ -1,8 +1,9 @@
+import Link from "next/link";
 import Menu from "./Menu";
 export default function Header() {
   return (
     <>
-      <header>
+      <header className="main-nav clearfix is-ts-sticky sticky fade_down_effect">
         <div className="container max-auto">
           <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -33,13 +34,13 @@ export default function Header() {
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 />
               </div>
-              <a className="btn btn-ghost text-xl">Money Divider</a>
+              <a className="btn btn-ghost text-2xl">Money Divider</a>
             </div>
             <div className="navbar-center hidden lg:flex">
-              <Menu device="desktop" className="menu menu-horizontal px-1" />
+              <Menu device="desktop" className="menu menu-horizontal px-1 text-base font-bold hover:text-indigo-900" />
             </div>
             <div className="navbar-end hidden sm:inline-flex">
-              <a className="btn  btn-outline btn-primary">Login/Register</a>
+              <Link href={"/register"} className="btn btn-primary text-base">Register</Link>
             </div>
           </div>
         </div>

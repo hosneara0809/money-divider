@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
 export default function Hero() {
   return (
@@ -32,7 +33,7 @@ export default function Hero() {
                   Step into a richer world by managing your finances with Money
                   Divider!
                 </p>
-                <button className="btn btn-primary">Get Started</button>
+                <Link href="/register" className="btn btn-primary">Get Started</Link>
               </div>
 
               <div className="text-center sm:w-8/12">

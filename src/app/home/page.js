@@ -1,19 +1,27 @@
-import Header from "@/components/Layout/Header";
+// import Login from "./app/login";
 import Hero from "./components/Hero";
-import About from "./components/About";
 import Feature from "./components/Feature";
-// import Footer from "./components/Footer";
+import HowItWork from "./components/HowItWork";
+import Blog from "./components/Blog";
+import About from "../about/page";
+import FAQ from "./components/FAQ"
+import Contact from "../contact/contact";
+import Layout from "@/components/Layout/Layout";
 export default function Home() {
   return (
     <>
-      <Header />
-      <main>
+      {/* <Login /> */}
+
+        <Layout>
         <Hero />
         <About />
         <Feature />
-      </main>
+        <HowItWork />
+        <Blog />
+        <FAQ />
+        <Contact />
+        </Layout>
 
-     {/* <Footer /> */}
     </>
   );
 }
