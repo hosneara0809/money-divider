@@ -1,3 +1,4 @@
+import RegisterForm from "@/components/Auth/RegisterForm";
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
 
@@ -27,113 +28,7 @@ export default function Register() {
                     create your account
                   </div>
 
-                  <form>
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Full Name 
-                          </span>
-                        </div>
-
-                        <input
-                          type="text"
-                          name="name"
-                          id="name"
-                          placeholder="Enter your full name"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Phone
-                          </span>
-                        </div>
-
-                        <input
-                          type="number"
-                          name="phone"
-                          id="phone"
-                          placeholder="Enter phone"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Email
-                          </span>
-                        </div>
-
-                        <input
-                          type="email"
-                          name="email"
-                          id="email"
-                          placeholder="Enter your email"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Password
-                          </span>
-                        </div>
-
-                        <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          placeholder="Enter your password"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-                    <div className="form-control">
-                      <label className="label cursor-pointer justify-start gap-3">
-                        <input
-                          type="checkbox"
-                          class="checkbox checkbox-primary"
-                          required
-                        />
-                        <span class="label-text">
-                          I agree to Money Divider{" "}
-                          <a href="" className="link link-primary">
-                            Terms
-                          </a>{" "}
-                          and{" "}
-                          <a href="" className="link link-primary">
-                            Privacy Policy
-                          </a>
-                        </span>
-                      </label>
-                    </div>
-                    <div>
-                      <button className="btn btn-primary w-full mt-5">
-                        Submit
-                      </button>
-                    </div>
-
-                    <div className="mt-3">
-                      Don't have an account?{" "}
-                      <Link className="link link-primary" href={"/login"}>
-                        Register
-                      </Link>
-                    </div>
-                  </form>
+                 <RegisterForm />
                 </div>
               </div>
             </div>

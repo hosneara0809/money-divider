@@ -2,10 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-.required::after{
+:root {
+    --app-backdrop-filter: blur(3px);
+    --app-overlay-color: #edf2f74a;
+    --app-bg-color: #e3e6e9;
+}
 
+/* TailwindCSS */
+/* .required {
+    @apply after:content-['*'] after:ml-0.5 after:text-red-500
+} */
+
+/* RAW CSS */
+.required::after {
     content: '*';
-    color: red;
     margin-left: 2px;
+    color: red;
+}
 
+.app-loading {
+    cursor: wait;
+    overflow: hidden;
+    position: relative;
+    pointer-events: none;
+    height: inherit;
+}
+
+.app-loading:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 0;
+    z-index: 1000;
+    background: var(--app-overlay-color) url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' xmlns='http://www.w3.org/2000/svg' stroke='%23999'%3E%3Cg fill='none' fill-rule='evenodd' stroke-width='2'%3E%3Ccircle cx='22' cy='22' r='1'%3E%3Canimate attributeName='r' begin='0s' dur='1.4s' values='1; 20' calcMode='spline' keyTimes='0; 1' keySplines='0.165, 0.84, 0.44, 1' repeatCount='indefinite' /%3E%3Canimate attributeName='stroke-opacity' begin='0s' dur='1.4s' values='1; 0' calcMode='spline' keyTimes='0; 1' keySplines='0.3, 0.61, 0.355, 1' repeatCount='indefinite' /%3E%3C/circle%3E%3Ccircle cx='22' cy='22' r='1'%3E%3Canimate attributeName='r' begin='-0.9s' dur='1.4s' values='1; 20' calcMode='spline' keyTimes='0; 1' keySplines='0.165, 0.84, 0.44, 1' repeatCount='indefinite' /%3E%3Canimate attributeName='stroke-opacity' begin='-0.9s' dur='1.4s' values='1; 0' calcMode='spline' keyTimes='0; 1' keySplines='0.3, 0.61, 0.355, 1' repeatCount='indefinite' /%3E%3C/circle%3E%3C/g%3E%3C/svg%3E") no-repeat 50% 50% !important;
+    backdrop-filter: var(--app-backdrop-filter);
+    -webkit-backdrop-filter: var(--app-backdrop-filter);
+}
+
+.app-loading.app-loading-fill::before {
+    background: var(--app-bg-color) !important;
+}
+
+body.app-loading:before {
+    position: fixed !important;
+    z-index: 9999;
 }

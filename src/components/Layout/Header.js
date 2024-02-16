@@ -1,6 +1,13 @@
 import Link from "next/link";
 import Menu from "./Menu";
-export default function Header() {
+import { cookies } from 'next/headers';
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Logout from "../Auth/Logout";
+export default async function Header() {
+  const supabase = createServerComponentClient({cookies});
+
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <>
       <header className="main-nav clearfix is-ts-sticky sticky fade_down_effect">
@@ -40,7 +47,7 @@ export default function Header() {
               <Menu device="desktop" className="menu menu-horizontal px-1 text-base font-bold hover:text-indigo-900" />
             </div>
             <div className="navbar-end hidden sm:inline-flex">
-              <Link href={"/register"} className="btn btn-primary text-base">Register</Link>
+            {user ? <Logout />  : <Link href={"/register"} className="btn btn-primary">Register</Link>}
             </div>
           </div>
         </div>

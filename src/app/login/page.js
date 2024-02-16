@@ -1,3 +1,4 @@
+import LoginForm from "@/components/Auth/LoginForm";
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
 
@@ -27,58 +28,7 @@ export default function Login() {
                     Log in to your account
                   </div>
 
-                  <form>
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Email
-                          </span>
-                        </div>
-
-                        <input   
-                          type="email"
-                          name="email"
-                          id="email"
-                          placeholder="Enter your email"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="form-control w-full">
-                        <div className="label">
-                          <span className="label-text font-bold required">
-                            Password
-                          </span>
-                        </div>
-
-                        <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          placeholder="Enter your password"
-                          className="input input-bordered w-full"
-                          required
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <button className="btn btn-primary w-full mt-5">
-                        Submit
-                      </button>
-                    </div>
-
-                    <div className="mt-3">
-                      Don't have an account?{" "}
-                      <Link className="link link-primary" href={"/register"}>
-                        Register
-                      </Link>
-                    </div>
-                  </form>
+                  <LoginForm />               
                 </div>
               </div>
             </div>
