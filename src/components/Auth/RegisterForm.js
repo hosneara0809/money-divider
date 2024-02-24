@@ -31,7 +31,7 @@ export default function RegisterForm() {
                         options: {
                             // emailRedirectTo: `${location.origin}/auth/callback`,
                             data: {
-                                role: email== 'admin@example.com' ? 'admin': 'user',
+                                role: email == 'admin@example.com' ? 'admin' : 'user',
                                 name: name,
                                 phone: phone,
                             }

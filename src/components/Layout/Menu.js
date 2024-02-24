@@ -2,8 +2,6 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-
-
 export default async function Menu(props) {
   const supabase = createServerComponentClient({cookies});
 
@@ -12,17 +10,19 @@ export default async function Menu(props) {
   return (
     <>
         <ul tabIndex={props.tabIndex ?? 1} className={props.className}>
-            <li><Link href="/">Home</Link></li>
-            <li><a>About</a></li>
-            <li><a>How it work</a></li>
-            <li><a>FAQ</a></li>
-            <li><a>Features</a></li>
-            <li><a>Blog</a></li>
-            <li><a>Contact</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/how-it-work">How it work</a></li>
+            <li><a href='/faq'>FAQ</a></li>
+            <li><a href='/features'>Features</a></li>
+            <li><a href='/blog'>Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
             {user
                     ? (
                         <>
                             <li><Link href={"/user/dashboard"}>Dashboard</Link></li>
+
+
                         </>
                     )
                     : (

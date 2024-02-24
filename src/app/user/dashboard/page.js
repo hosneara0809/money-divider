@@ -23,13 +23,6 @@ export default async function Dashboard() {
             <Layout>
                 <section className="feature-section mb-10">
                     <div className="container mx-auto mt-5">
-                        <div className="text-sm breadcrumbs mb-3">
-                            <ul>
-                                <li><Link href={"/"}>Home</Link></li>
-                                <li>Dashboard</li>
-                            </ul>
-                        </div>
-
                         <div className="flex justify-center gap-3">
                             <div className="w-full md:w-3/12">
                                 <div className="card shadow">

@@ -9,7 +9,7 @@ export default function FeatureCard(props) {
                         <i className= {props.icon}></i>
                     </div>
 
-                    <div className="card-title hover:text-red-800">{props.title}</div>
+                    <div className="card-title hover:text-red-800">{props.name}</div>
 
                     <div>{props.description}</div>
 

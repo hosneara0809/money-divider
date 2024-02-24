@@ -1,19 +1,39 @@
 
-export default function FAQ() {
-    let faqs = [
-        {
-            question: "How can Namecheap help me make more online for less?",
-            answer: "Namecheap exists to help EVERYONE get, make, and achieve more online with less cost, hassle, and headaches. We offer everything you need to get online and thrive, from domains to hosting to security to specialist services and products — all with value built in. Great prices, world-beating customer support, and extra resources come as standard.",
-        },
-        {
-            question: "Why buy a domain name from Namecheap?",
-            answer: "Above all else, we strive to deliver outstanding customer experiences. When you buy a domain name from Namecheap, we guarantee it will be handed over to you with superior standards of service and support. Our primary goal is to build a customer-focused atmosphere filled with the happiest customers in the galaxy. The Namecheap guarantee is our mark of excellence.",
-        },
-        {
-            question: "How do I get started with Namecheap?",
-            answer: "Namecheap is a global provider of domain name registration, domain name hosting, and web hosting. The service is available in 30+ countries. You can get started with Namecheap today.",
-        },
-    ];
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from 'next/headers';
+
+async function getData() {
+  const supabase = createServerComponentClient({cookies});
+
+      const { data, error } = await supabase
+          .from('faqs')
+          .select('*')
+          .order('id', { ascending: true });
+
+      if (error) throw error;
+      return data;
+}
+
+
+
+export default async function FAQ() {
+  let faqs = await getData();
+
+
+    // let faqs = [
+    //     {
+    //         question: "How can Namecheap help me make more online for less?",
+    //         answer: "Namecheap exists to help EVERYONE get, make, and achieve more online with less cost, hassle, and headaches. We offer everything you need to get online and thrive, from domains to hosting to security to specialist services and products — all with value built in. Great prices, world-beating customer support, and extra resources come as standard.",
+    //     },
+    //     {
+    //         question: "Why buy a domain name from Namecheap?",
+    //         answer: "Above all else, we strive to deliver outstanding customer experiences. When you buy a domain name from Namecheap, we guarantee it will be handed over to you with superior standards of service and support. Our primary goal is to build a customer-focused atmosphere filled with the happiest customers in the galaxy. The Namecheap guarantee is our mark of excellence.",
+    //     },
+    //     {
+    //         question: "How do I get started with Namecheap?",
+    //         answer: "Namecheap is a global provider of domain name registration, domain name hosting, and web hosting. The service is available in 30+ countries. You can get started with Namecheap today.",
+    //     },
+    // ];
 
 
     return (

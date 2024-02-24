@@ -1,16 +1,18 @@
+
+
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from 'next/headers';
 import { redirect } from "next/navigation";
 import LayoutAuth from "@/components/Layout/LayoutAuth";
-import FaqForm from "../components/FaqForm";
+import EventForm from "../../components/EventForm";
 
 export const metadata = {
-    title: "Add FAQs",
+    title: "Edit Events",
 };
 
-export default async function Create() {
+export default async function Edit({params}) {
     const supabase = createServerComponentClient({cookies});
 
     const { data: { user } } = await supabase.auth.getUser();
@@ -22,20 +24,20 @@ export default async function Create() {
     return (
         <>
             <Layout>
-                <section className="how-it-works-section mb-10">
+                <section className="event-section mb-10">
                     <div className="container mx-auto mt-5">
                         <LayoutAuth>
                             <div>
                                 <div className="border-b-2 pb-3 flex justify-between items-center">
-                                    <div className="card-title">Add FAQs</div>
+                                    <div className="card-title">Edit Events</div>
 
                                     <div>
-                                        <Link href={'/admin/faqs/list'} className="btn btn-secondary">Cancel</Link>
+                                        <Link href={'/user/events/list'} className="btn btn-secondary">Cancel</Link>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <FaqForm />
+                                    <EventForm id={params.id} />
                                 </div>
                             </div>
                         </LayoutAuth>
