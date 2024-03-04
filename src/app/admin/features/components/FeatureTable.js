@@ -58,7 +58,7 @@ export default function FeatureTable() {
 
                     <tbody>
                         {features.map((feature, index) => (
-                            <tr>
+                            <tr  key={`feature-${feature.id}`}>
                                 <th>{index + 1}</th>
                                 <td><i className={`${feature.icon} text-2xl`}></i></td>
                                 <td>{feature.name}</td>

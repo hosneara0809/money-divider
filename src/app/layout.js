@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import NextTopLoader from 'nextjs-toploader';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,7 +15,10 @@ export default function RootLayout({ children }) {
       <head>
       <script src="https://unpkg.com/@phosphor-icons/web" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+      <NextTopLoader />
+        {children}
+        </body>
     </html>
   );
 }

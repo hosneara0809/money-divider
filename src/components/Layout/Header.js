@@ -5,12 +5,10 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Logout from "../Auth/Logout";
 export default async function Header() {
   const supabase = createServerComponentClient({cookies});
-
   const { data: { user } } = await supabase.auth.getUser();
-
   return (
     <>
-      <header className="main-nav clearfix is-ts-sticky sticky fade_down_effect">
+      <header className="main-nav clearfix is-ts-sticky `position: sticky` fade_down_effect">
         <div className="container max-auto">
           <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -28,9 +26,9 @@ export default async function Header() {
                     stroke="currentColor"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
+                      stroke-Linecap="round"
+                      stroke-linejoin="round"
+                      stroke-Width="2"
                       d="M4 6h16M4 12h8m-8 6h16"
                     />
                   </svg>

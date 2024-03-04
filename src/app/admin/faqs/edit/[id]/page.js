@@ -2,9 +2,6 @@
 
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from 'next/headers';
-import { redirect } from "next/navigation";
 import FaqForm from "../../components/FaqForm";
 import LayoutAuth from "@/components/Layout/LayoutAuth";
 
@@ -13,13 +10,6 @@ export const metadata = {
 };
 
 export default async function Edit({params}) {
-    const supabase = createServerComponentClient({cookies});
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (! user) {
-        return redirect("/login");
-    }
 
     return (
         <>

@@ -2,26 +2,28 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import { Formik, Field, Form } from 'formik';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function EventForm({id}) {
+export default function MemberForm({id}) {
     let [loading, setLoading] = useState(false);
-    let [event, setEvent] = useState({});
+    let [events, setEvents] = useState([]);
+    let [member, setMember] = useState({});
 
     const router = useRouter();
     const supabase = createClientComponentClient();
 
     useEffect(() => {
-        const getEvent = async () => {
+        getEvents();
+
+        const getMember = async () => {
             setLoading(true);
 
             const { data: { user } } = await supabase.auth.getUser();
 
             const { data, error } = await supabase
-                .from('events')
+                .from('event_members')
                 .select('*')
                 .eq('id', id)
                 .single();
@@ -29,65 +31,76 @@ export default function EventForm({id}) {
             if (error) throw error.message;
 
             if (data.user_id != user?.id) {
-                return router.push('/user/events/list');
+                return router.push('/user/members/list');
             }
 
-            setEvent(data);
+            setMember(data);
 
             setLoading(false);
         };
 
-        id && getEvent();
+        id && getMember();
     }, [id]);
+
+    const getEvents = async () => {
+        setLoading(true);
+
+        const { data: { user } } = await supabase.auth.getUser();
+
+        const { data, error } = await supabase
+            .from('events')
+            .select('*')
+            .eq('user_id', user?.id)
+            .order('id', { ascending: false });
+
+        if (error) throw error.message;
+
+        setEvents(data);
+
+        setLoading(false);
+    };
 
     return (
         <>
             <Formik
                 enableReinitialize={true}
                 initialValues={{
-                    id: event?.id,
-                    type: event?.type,
-                    name: event?.name,
-                    description: event?.description,
-                    start_at: event?.start_at ? dayjs(event?.start_at).format('YYYY-MM-DD') : '',
-                    end_at: event?.end_at ? dayjs(event?.end_at).format('YYYY-MM-DD') : '',
+                    id: member?.id,
+                    event_id: member?.event_id,
+                    name: member?.name,
+                    phone: member?.phone,
+                    email: member?.email,
+                    address: member?.address,
                 }}
                 onSubmit={async (values, actions) => {
                     const { data: { user } } = await supabase.auth.getUser();
 
                     let id = values.id;
                     let user_id = user.id;
-                    let type = values.type;
+                    let event_id = values.event_id;
                     let name = values.name;
-                    let description = values.description;
-                    let start_at = values.start_at;
-                    let end_at = values.end_at;
+                    let phone = values.phone;
+                    let email = values.email;
+                    let address = values.address;
 
                     if (id) {
                         const { error } = await supabase
-                            .from('events')
-                            .update({ user_id: user_id, type: type, name: name, description: description, start_at: start_at, end_at: end_at, updated_at: new Date() })
+                            .from('event_members')
+                            .update({ user_id: user_id, event_id: event_id, name: name, phone: phone, email: email, address: address, updated_at: new Date() })
                             .eq('id', id);
 
                             if (error) throw error.message;
                     } else {
-                        const { data, error } = await supabase
-                            .from('events')
-                            .insert({ user_id: user_id, type: type, name: name, description: description, start_at: start_at, end_at: end_at })
-                            .select();
+                        const { error } = await supabase
+                            .from('event_members')
+                            .insert({ user_id: user_id, event_id: event_id, name: name, phone: phone, email: email, address: address, });
 
                             if (error) throw error.message;
-
-                        const { eventMembersError } = await supabase
-                            .from('event_members')
-                            .insert({ user_id: user_id, event_id: data[0].id, name: user?.user_metadata?.name, phone: user?.user_metadata?.phone, email: user?.email });
-
-                            if (eventMembersError) throw eventMembersError.message;
                     }
 
                     actions.setSubmitting(false);
 
-                    router.push('/user/events/list');
+                    router.push('/user/members/list');
                 }}
             >
                 {(props) => (
@@ -95,21 +108,20 @@ export default function EventForm({id}) {
                         <div>
                             <label className="form-control w-full">
                                 <div className="label">
-                                    <span className="label-text font-bold required">Type</span>
+                                    <span className="label-text font-bold required">Select Event</span>
                                 </div>
 
                                 <Field
                                     as="select"
-                                    name="type"
-                                    id="type"
+                                    name="event_id"
+                                    id="event_id"
                                     className="select select-bordered w-full"
                                     required
                                 >
                                     <option value="">---</option>
-                                    <option value="Tour">Tour</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Party">Party</option>
-                                    <option value="Get-Together">Get-Together</option>
+                                    {events.map((event) => (
+                                        <option key={event.id} value={event.id}>{event.name}</option>
+                                    ))}
                                 </Field>
                             </label>
                         </div>
@@ -133,48 +145,45 @@ export default function EventForm({id}) {
                         <div>
                             <label className="form-control w-full">
                                 <div className="label">
-                                    <span className="label-text font-bold required">Description</span>
+                                    <span className="label-text font-bold">Phone</span>
+                                </div>
+
+                                <Field
+                                    number="number"
+                                    name="phone"
+                                    id="phone"
+                                    className="input input-bordered w-full"
+                                />
+                            </label>
+                        </div>
+
+                        <div>
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text font-bold">Email</span>
+                                </div>
+
+                                <Field
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    className="input input-bordered w-full"
+                                />
+                            </label>
+                        </div>
+
+                        <div>
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text font-bold">Address</span>
                                 </div>
 
                                 <Field
                                     as="textarea"
                                     type="text"
-                                    name="description"
-                                    id="description"
+                                    name="address"
+                                    id="address"
                                     className="textarea textarea-bordered w-full"
-                                    required
-                                />
-                            </label>
-                        </div>
-
-                        <div>
-                            <label className="form-control w-full">
-                                <div className="label">
-                                    <span className="label-text font-bold required">Start</span>
-                                </div>
-
-                                <Field
-                                    type="date"
-                                    name="start_at"
-                                    id="start_at"
-                                    className="input input-bordered w-full"
-                                    required
-                                />
-                            </label>
-                        </div>
-
-                        <div>
-                            <label className="form-control w-full">
-                                <div className="label">
-                                    <span className="label-text font-bold required">End</span>
-                                </div>
-
-                                <Field
-                                    type="date"
-                                    name="end_at"
-                                    id="end_at"
-                                    className="input input-bordered w-full"
-                                    required
                                 />
                             </label>
                         </div>

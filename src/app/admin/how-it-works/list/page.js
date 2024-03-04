@@ -1,8 +1,5 @@
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from 'next/headers';
-import { redirect } from "next/navigation";
 import HowItWorkTable from "../components/HowItWorkTable";
 import LayoutAuth from "@/components/Layout/LayoutAuth";
 
@@ -11,14 +8,6 @@ export const metadata = {
 };
 
 export default async function List() {
-    const supabase = createServerComponentClient({cookies});
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (! user) {
-        return redirect("/login");
-    }
-
     return (
         <>
             <Layout>

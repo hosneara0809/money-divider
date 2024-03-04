@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout/Layout";
-import Blog from "../home/components/Blog";
 import BlogCard from "@/components/UI/BlogCard";
 import Link from "next/link";
 

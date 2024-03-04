@@ -58,7 +58,7 @@ export default function HowItWorkTable() {
 
                     <tbody>
                         {works.map((work, index) => (
-                            <tr>
+                            <tr  key={`work-${work.id}`}>
                                 <th>{index + 1}</th>
                                 <td><i className={`${work.icon} text-2xl`}></i></td>
                                 <td>{work.name}</td>

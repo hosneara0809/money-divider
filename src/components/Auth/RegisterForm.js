@@ -122,10 +122,10 @@ export default function RegisterForm() {
                 </div>
 
                 <div>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start gap-3">
-                            <input type="checkbox" class="checkbox checkbox-primary" required />
-                            <span class="label-text">I agree to Money Divider <a href="" className="link link-primary">Terms</a> and <a href="" className="link link-primary">Privacy Policy</a></span>
+                    <div className="form-control">
+                        <label className="label cursor-pointer justify-start gap-3">
+                            <input type="checkbox" className="checkbox checkbox-primary" required />
+                            <span className="label-text">I agree to Money Divider <a href="" className="link link-primary">Terms</a> and <a href="" className="link link-primary">Privacy Policy</a></span>
                         </label>
                     </div>
                 </div>

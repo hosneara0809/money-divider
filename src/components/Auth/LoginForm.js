@@ -82,10 +82,8 @@ export default function LoginForm() {
             </div>
 
             <div className="mt-3">
-              Don't have an account?{" "}
-              <Link className="link link-primary" href={"/register"}>
-                Register
-              </Link>
+               {`Don't have an account?`} 
+               <Link className="link link-primary" href={"/register"}>Register</Link>
             </div>
           </Form>
         )}

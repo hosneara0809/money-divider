@@ -13,13 +13,6 @@ export const metadata = {
 };
 
 export default async function Edit({params}) {
-    const supabase = createServerComponentClient({cookies});
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (! user) {
-        return redirect("/login");
-    }
 
     return (
         <>

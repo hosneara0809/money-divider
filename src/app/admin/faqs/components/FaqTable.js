@@ -57,7 +57,7 @@ export default function HowItWorkTable() {
 
                     <tbody>
                         {faqs.map((faq, index) => (
-                            <tr>
+                            <tr  key={`faq-${faq.id}`}>
                                 <th>{index + 1}</th>
                                 <td>{faq.question }</td>
                                 <td>{faq.answer}</td>

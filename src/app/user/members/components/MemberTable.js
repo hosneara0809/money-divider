@@ -2,33 +2,32 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function EventTable() {
+export default function MemberTable() {
     let [loading, setLoading] = useState(false);
-    let [events, setEvents] = useState([]);
+    let [members, setMembers] = useState([]);
     const supabase = createClientComponentClient();
 
     useEffect(() => {
-        getEvents();
+        getMembers();
     }, []);
 
-    const getEvents = async () => {
+    const getMembers = async () => {
         setLoading(true);
 
         const { data: { user } } = await supabase.auth.getUser();
 
         const { data, error } = await supabase
-            .from('events')
-            .select('*')
+            .from('event_members')
+            .select('*, events(*)')
             .eq('user_id', user?.id)
             .order('id', { ascending: false });
 
         if (error) throw error.message;
 
-        setEvents(data);
+        setMembers(data);
 
         setLoading(false);
     };
@@ -37,13 +36,13 @@ export default function EventTable() {
         setLoading(true);
 
         const { error } = await supabase
-            .from('events')
+            .from('event_members')
             .delete()
             .eq('id', id);
 
         if (error) throw error.message;
 
-        getEvents();
+        getMembers();
     }
 
     return (
@@ -53,28 +52,28 @@ export default function EventTable() {
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Type</th>
+                            <th>Event</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Start</th>
-                            <th>End</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
                             <th className="text-right">Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {events.map((event, index) => (
-                            <tr key={`event-${event.id}`}>
+                        {members.map((member, index) => (
+                            <tr  key={`member-${member.id}`}>
                                 <th>{index + 1}</th>
-                                <td>{event.type}</td>
-                                <td>{event.name}</td>
-                                <td>{event.description}</td>
-                                <td>{dayjs(event.start_at).format('DD-MM-YYYY')}</td>
-                                <td>{dayjs(event.end_at).format('DD-MM-YYYY')}</td>
+                                <td>{member.events.name}</td>
+                                <td>{member.name}</td>
+                                <td>{member.phone ?? 'N/A'}</td>
+                                <td>{member.email ?? 'N/A'}</td>
+                                <td>{member.address ?? 'N/A'}</td>
                                 <td>
                                     <div className="flex justify-end gap-2">
-                                        <Link href={`/user/events/edit/${event.id}`} className="btn btn-xs btn-info">Edit</Link>
-                                        <button onClick={() => destroy(event.id)} className="btn btn-xs btn-secondary">Delete</button>
+                                        <Link href={`/user/members/edit/${member.id}`} className="btn btn-xs btn-info">Edit</Link>
+                                        <button onClick={() => destroy(member.id)} className="btn btn-xs btn-secondary">Delete</button>
                                     </div>
                                 </td>
                             </tr>

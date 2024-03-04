@@ -1,14 +1,14 @@
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
-import FeatureForm from "../components/FeatureForm";
 import LayoutAuth from "@/components/Layout/LayoutAuth";
+import TransactionForm from "../components/TransactionForm";
 
 export const metadata = {
-    title: "Add Features",
+    title: "Add Transactions",
 };
 
 export default async function Create() {
-
+    
     return (
         <>
             <Layout>
@@ -17,15 +17,15 @@ export default async function Create() {
                         <LayoutAuth>
                             <div>
                                 <div className="border-b-2 pb-3 flex justify-between items-center">
-                                    <div className="card-title">Add Features</div>
+                                    <div className="card-title">Add Transactions</div>
 
                                     <div>
-                                        <Link href={'/admin/features/list'} className="btn btn-secondary">Cancel</Link>
+                                        <Link href={'/user/transactions/list'} className="btn btn-secondary">Cancel</Link>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <FeatureForm />
+                                    <TransactionForm />
                                 </div>
                             </div>
                         </LayoutAuth>
